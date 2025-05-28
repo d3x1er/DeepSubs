@@ -26,11 +26,11 @@ class DeepSub:
         # ===========================
         # INSERT YOUR API KEYS HERE
         # ===========================
-        self.SHODAN_API_KEY = "YOUR_API_KEY" 
-        self.VIRUSTOTAL_API_KEY = "YOUR_API_KEY"
-        self.DNSDUMPSTER_API_KEY = "YOUR_API_KEY"
-        self.SECURITYTRAILS_API_KEY = "YOUR_API_KEY"
-        self.URLSCAN_API_KEY = "YOUR_API_KEY"
+        self.SHODAN_API_KEY = "your-key" 
+        self.VIRUSTOTAL_API_KEY = "your-key"
+        self.DNSDUMPSTER_API_KEY = "your-key"
+        self.SECURITYTRAILS_API_KEY = "your-key"
+        self.URLSCAN_API_KEY = "your-key"
         # ===========================
         
         self.user_agents = [
@@ -113,7 +113,20 @@ class DeepSub:
         """Validate domain format"""
         pattern = r'^[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?)*$'
         return bool(re.match(pattern, domain)) and len(domain) <= 253
-
+		
+	
+    def extract_amass_subdomains(self, lines, domain):
+		subdomains = set()
+		for line in lines:
+			line = line.strip()
+			if not line:
+				continue
+			first_part = line.split()[0]
+			if first_part.endswith(domain):
+				subdomains.add(first_part)
+		return subdomains
+		
+	
     def resolve_subdomain_ip(self, subdomain, timeout=5):
         """Resolve a single subdomain to its IP address(es), excluding localhost"""
         try:
@@ -215,7 +228,7 @@ class DeepSub:
             self.log_warning("Not installed or not in PATH", "amass")
             return set()
         results = self.run_tool(f"amass enum -d {domain} -passive -timeout 5")
-        subs = self.filter_subdomains(set(results), domain)
+        subs = self.extract_amass_subdomains(results, domain)
         self.results['amass'] = len(subs)
         self.log_info(f"Found {len(subs)} subdomains", "amass")
         return subs
@@ -347,7 +360,6 @@ class DeepSub:
                     if sub.strip().endswith(domain):
                         subs.add(sub.strip())
             
-            print(subs)
             subs = self.filter_subdomains(subs, domain)
             self.results['crt.sh'] = len(subs)
             self.log_info(f"Found {len(subs)} subdomains", "crt.sh")
