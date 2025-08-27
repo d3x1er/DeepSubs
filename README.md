@@ -7,21 +7,6 @@
 
 It orchestrates multiple OSINT sources and external tools to collect, consolidate, and de-duplicate subdomain information for a target domain. DeepSubs is highly configurable, scriptable, and extensible.
 
-# Contents
-
-- [✨ Features](#sparkles-features)
-- [🔧 Supported Sources](#wrench-supported-sources)
-- [🔑 API Keys](#key-api-keys)
-- [🛠️ System Requirements](#hammer_and_wrench-system-requirements)
-- [🚀 Usage](#rocket-usage)
-    - [🔍 Examples](#mag-examples)
-- [⚙️ Options](#gear-options)
-- [📁 Output](#file_folder-output)
-- [⚠️ Notes](#warning-notes)
-- [📦 Installation](#package-installation)
-- [📃 License](#page_with_curl-license)
-- [🤝 Contributing](#handshake-contributing)
-
 * * *
 
 ## ✨ Features
