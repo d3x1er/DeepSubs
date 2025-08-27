@@ -149,7 +149,7 @@ At the end of each scan, DeepSubs produces:
 
 ## ⚠️ Notes
 
-- Some data sources (e.g. `amass`, `<span style="color: #383a42;">knockpy</span>`, `<span style="color: #383a42;">anubis</span>`) may be slow — this is expected.
+- Some data sources (e.g. `amass`, `knockpy`, `anubis`) may be slow — this is expected.
     
 - Results from different tools may overlap — DeepSubs ensures a clean, unique set.
     
